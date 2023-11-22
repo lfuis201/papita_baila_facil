@@ -5,7 +5,7 @@
       <v-card class="mx-auto my-4" max-width="400" elevation=16>
         <!-- Contenedor de video -->
         <div class="video-container">
-          <video controls :src="video.url" type="video/mp4"></video>
+          <video autoplay muted loop :src="video.url" type="video/mp4"></video>
         </div>
 
     <v-card-item>
@@ -50,7 +50,7 @@
         
 
         <div class="tiempo-color ms-4">
-        Tiempo promedio:
+        Promedio de aprendizaje:
         </div>
         <div class="text-grey ms-4">
         00:00
@@ -75,8 +75,9 @@
     <v-btn
       variant="text"
       class="orange-button"
+      @click="reproducirSonido"
     >
-      !A BAILAR¡
+      Comenzar
     </v-btn>
         <!-- Otras secciones de la tarjeta (rating, descripción, etc.) -->
 
@@ -104,7 +105,8 @@ video {
 .orange-button {
   background-color: orange;
   color: white;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
+  
 }
 
 </style>
@@ -148,8 +150,18 @@ export default {
     };
   },
   methods: {
-    
-  
+    reproducirSonido() {
+      // Ruta al archivo de sonido
+      const rutaSonido = require('@/assets/sonido.mp3'); // Ajusta la ruta según tu estructura
+
+      // Crear una instancia de Audio
+      const sonido = new Audio(rutaSonido);
+
+      // Reproducir el sonido
+      sonido.play();
+
+      this.$router.push('/pasoscancion')
+    },
   }
 };
 

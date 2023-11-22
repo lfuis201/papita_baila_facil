@@ -83,7 +83,7 @@ export default{
     goToAnotherComponent(slide) {
       // Redirecciona a la ruta pasos-salsa al hacer clic en el Slide 1
       if (slide === 1) {
-        this.$router.push('/salsa-pasos');
+        this.$router.push('/video');
       }
     },
     startAudio(videoElement) {
@@ -172,8 +172,15 @@ export default{
   z-index: 23;
   font-size: 24px;
   color: white;
-  background-color: #f69100; 
+  background-color: #f69100;
+  border-radius: 20px; /* Ajusta el valor según tus necesidades */
+  padding: 10px 20px;
 }
+
+.genre-header {
+   
+    color: #fc4b08;
+  }
 
 
 </style>

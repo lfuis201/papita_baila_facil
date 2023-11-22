@@ -19,15 +19,53 @@
               <v-avatar
               size="150"
               rounded="0">
-              <v-img :src="videoThumbnailUrl"  class="mr-2"></v-img>
+              <v-img :src="paso.foto"  class="mr-2"></v-img>
 
               </v-avatar>
             </template>
-            <v-list-item-content>
-              <v-list-item-title>{{ paso }}</v-list-item-title>
+            <v-list-item-content style="background-color: #f0f0f0;">
+              <v-list-item-title class="text-black  text-left">{{ paso.nombre}}</v-list-item-title>
+              
+              <v-list-item-title class="text-grey text-left">
+              {{ paso.minuto}} hasta {{ paso.minuto}}
+              <v-icon
+                color="error"
+                icon="mdi-timer-music-outline"
+                size="small"
+              ></v-icon>
+              </v-list-item-title>
+               <v-list-item-title class="text-grey text-left">
+             
+              <a class="text-black">Tiempo aprendizaje:</a>
+              00:00
+              </v-list-item-title>
+              <v-list-item-title class="text-grey text-left">
+             
+              <a class="text-red">Dificultad:</a>
+              {{ paso.difucultad}}
+              </v-list-item-title>
+
+              <v-list-item-title class="text-left">
+              <v-btn>
+                <v-icon
+                  color="red"
+                  icon="mdi-play-circle"
+                  size="36"
+                ></v-icon>
+              </v-btn>
+              </v-list-item-title>
+              
             </v-list-item-content>
           </v-list-item>
         </v-list>
+
+        <v-btn
+        class="text-white ms-4"
+        elevation="16"
+        color="orange"
+        >
+          !A BAILAR¡
+        </v-btn>
     </v-col>
   </v-row>
 </template>
@@ -38,7 +76,26 @@ export default {
     return {
       videoUrl: require('@/assets/salsa_fondo.mp4'),
       videoThumbnailUrl: require('@/assets/pasos/reproducer/pic1.png'),
-      listaDePasos: ["Paso básico", "Paso lateral", "Paso cruzado", /* ... otros pasos ... */]
+      listaDePasos: [
+        {
+          nombre:"Paso1",
+          minuto: "00:00",
+          difucultad: "facil",
+          foto: require('@/assets/pasos/reproducer/pic1.png'),
+        },
+        {
+          nombre:"Paso2",
+          minuto: "00:00",
+          difucultad: "intermedio",
+          foto: require('@/assets/pasos/reproducer/pic1.png'),
+        },
+        {
+          nombre:"Paso3",
+          minuto: "00:00",
+          difucultad: "facil",
+          foto: require('@/assets/pasos/reproducer/pic1.png'),
+        }
+      ]
     };
   }
 };

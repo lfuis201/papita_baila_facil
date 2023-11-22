@@ -1,5 +1,6 @@
 <template>
-  <v-app-bar app color="#f69100">
+
+  <v-app-bar app color="#de2e03">
     <v-btn icon @click="goBack">
       <v-icon class="icon-size">mdi-chevron-left</v-icon>
 
@@ -9,8 +10,8 @@
 
     </v-btn>
     <h1>Baila Fácil</h1>
-
-    
+    <v-spacer></v-spacer>
+    <h1>{{ pageTitle }}</h1>
 
     <v-spacer></v-spacer>
 
@@ -38,8 +39,44 @@ export default {
       // Agrega la lógica para ir a la página principal
       // Por ejemplo:
       this.$router.push('/clases'); // Ajusta la ruta según tu estructura de ruta
-    }
-  }
+    },
+    updateTitle() {
+      // Actualizar el título según la ruta actual
+      const path = this.$route.path;
+      switch (path) {
+        case '/video':
+          this.pageTitle = 'Canciones Salsa';
+          break;
+        case '/pasoscancion':
+          this.pageTitle = 'Pasos';
+          break;
+        // Agrega más casos según tus necesidades
+        default:
+          this.pageTitle = '';
+        }
+    }, beforeRouteEnter(to, from, next) {
+      next(vm => {
+        vm.updateTitle();
+      });
+    },
+    beforeRouteUpdate(to, from, next) {
+      this.updateTitle();
+      next();
+    },
+    
+  },
+
+  //paleta nav= #de2e03
+ //Titulos #fc4b08
+ //subtiulos 
+  created() {
+    // Llama a updateTitle cuando se carga el componente para establecer el título inicial
+    this.updateTitle();
+  },
+  mounted() {
+    this.updateTitle();
+  },
+
 };
 </script>
 <style>

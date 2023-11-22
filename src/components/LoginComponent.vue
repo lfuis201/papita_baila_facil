@@ -116,13 +116,13 @@ export default {
 }
 
 .text-h6 {
-  color: #f69100; /* Color naranja oscuro */
+  color: #fc4b08; /* Color naranja oscuro */
   font-weight: bold;
   font-family: 'Danza', sans-serif; /* Cambia 'Danza' por la fuente que desees */
 }
 
 .texttitle{
-  color: #f69100;
+  color: #fc4b08;
   font-weight: bold;
 }
 
