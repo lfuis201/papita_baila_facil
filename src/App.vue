@@ -1,16 +1,42 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <v-app>
+    <v-main>
+      <NavbarComponent></NavbarComponent>
+      <div id="app" class="content-container">
+        <PantallaCargaComponent v-if="isLoading"></PantallaCargaComponent>
+        <router-view></router-view>
+
+      </div>
+    </v-main>
+  </v-app>
+  
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import PantallaCargaComponent from './components/PantallaCargaComponent.vue'; 
+import NavbarComponent from './components/NavbarComponent.vue'; 
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    PantallaCargaComponent,
+    NavbarComponent
+  },
+
+  data() {
+    return {
+      isLoading: true, // Inicialmente, la pantalla de carga estará visible
+    };
+  },
+  created() {
+    // Simulación de tiempo de carga (por ejemplo, 3 segundos)
+    setTimeout(() => {
+      this.isLoading = false; // Oculta la pantalla de carga después de 3 segundos
+    }, 3000);
+  },
+
 }
 </script>
 
@@ -21,6 +47,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
+
 </style>
