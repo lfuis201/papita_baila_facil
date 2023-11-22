@@ -12,6 +12,8 @@ import KpopComponent from './components/KpopComponent.vue';
 import BreakDanceComponent from './components/BreakDanceComponent.vue';
 import BachataComponent from './components/BachataComponent.vue';
 import VideoComponent from './components/VideoComponent.vue';
+import PasosCancionComponent from './components/PasosCancionComponent.vue';
+
 
 // Vuetify
 import 'vuetify/styles'
@@ -48,6 +50,7 @@ const routes = [
   { path: '/breakdance', component:  BreakDanceComponent },
   { path: '/bachata', component:  BachataComponent },
   { path: '/video', component:  VideoComponent },
+  { path: '/pasoscancion', component:  PasosCancionComponent },
 
 
 ]
