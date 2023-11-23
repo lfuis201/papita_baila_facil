@@ -113,8 +113,8 @@ export default{
 
 <style>
 .carousel__item {
-  min-height: 100vh;
-  width: 100%;
+  min-height: 80vh;
+  width: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -124,8 +124,8 @@ export default{
 }
 
 .video-background {
-  width: 50%; /* Ajusta el ancho del video al 100% del contenedor */
-  height: 100%; /* Ajusta la altura del video al 100% del contenedor */
+  width: 40%; /* Ajusta el ancho del video al 100% del contenedor */
+  height: 70%; /* Ajusta la altura del video al 100% del contenedor */
   object-fit: cover;
   position: absolute;
   top: 50%; /* Centra verticalmente */
