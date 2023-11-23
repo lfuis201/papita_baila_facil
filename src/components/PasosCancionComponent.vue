@@ -2,7 +2,7 @@
   <v-row>
     <!-- Columna del Video -->
     <v-col cols="12" md="6">
-      <v-card class="mx-auto my-4" max-width="400">
+      <v-card class="mx-auto my-4 sombreado_video" max-width="400">
         <!-- Contenedor de video -->
         <div class="video-container">
           <!-- Agrega la referencia al elemento de video -->
@@ -20,7 +20,7 @@
               <v-img :src="paso.foto" class="mr-2"></v-img>
             </v-avatar>
           </template>
-          <v-list-item-content style="background-color: #f0f0f0;">
+          <v-list-item-content class="pasos_linea" style="background-color: #f0f0f0;">
             <v-list-item-title class="text-black text-left">{{ paso.nombre }}</v-list-item-title>
             <v-list-item-title class="text-grey text-left">
               {{ paso.inicio }} hasta {{ paso.fin }}
@@ -43,11 +43,13 @@
         </v-list-item>
       </v-list>
 
-      <v-btn class="text-white ms-4" elevation="16" color="orange">
-        !A BAILAR¡
-      </v-btn>
+
     </v-col>
   </v-row>
+
+
+  <button class="boton_baile_ir"> A Bailar !!!
+  </button>
 </template>
 
 <script>
@@ -62,21 +64,21 @@ export default {
           inicio: "00:00",
           fin: "00:04",
           difucultad: "facil",
-          foto: require('@/assets/pasos/salsa_Televisio_1/Pasa_Lineal.png'),
+          foto: require('@/assets/pasos/salsa_Televisio_1/Group_1.png'),
         },
         {
           nombre: "2 Basico Lateral",
           inicio: "00:05",
           fin: "00:08",
           difucultad: "intermedio",
-          foto: require('@/assets/pasos/salsa_Televisio_1/basico_lateral.png'),
+          foto: require('@/assets/pasos/salsa_Televisio_1/Group_2.png'),
         },
         {
           nombre: "3 Basico Atras",
           inicio: "00:09",
           fin: "00:13",
           difucultad: "facil",
-          foto: require('@/assets/pasos/reproducer/pic1.png'),
+          foto: require('@/assets/pasos/salsa_Televisio_1/Group_3.png'),
         },
       ],
       videoElement: null,
@@ -110,14 +112,23 @@ export default {
 </script>
 
 <style scoped>
+.sombreado_video {
+  -webkit-box-shadow: 21px 16px 14px 0px rgba(0, 0, 0, 0.61);
+  -moz-box-shadow: 21px 16px 14px 0px rgba(0, 0, 0, 0.61);
+  box-shadow: 21px 16px 14px 0px rgba(0, 0, 0, 0.61);
+
+}
+
 .video-container {
-  max-width: 75%;
+  max-width: 65%;
   margin: auto;
+
 }
 
 video {
   width: 100%;
   height: auto;
+
 }
 
 v-list-item-avatar div {
@@ -125,9 +136,47 @@ v-list-item-avatar div {
   height: 40px;
   background-size: cover;
   background-position: center center;
+
+}
+
+
+
+.pasos_linea::after {
+  content: "";
+  /* Necesario para crear un elemento pseudo ::after */
+  display: block;
+  /* Hace que el elemento pseudo sea un bloque */
+  border-bottom: 2px solid rgb(196, 196, 196);
+  /* Establece una línea en la parte inferior con 2 píxeles de grosor y color rojo */
+  margin-top: 10px;
+  /* Ajusta el espacio entre el contenido y la línea inferior */
 }
 
 .bailar {
   margin-top: 80px;
+}
+
+/*Boton Bailar */
+
+.boton_baile_ir {
+  margin-top: 35px;
+  color: #ecf0f1;
+  padding: 0.7em 5em;
+  font-size: 25px;
+  border-radius: 0.5em;
+  background: #f39c12;
+  border: 1px solid #e8e8e8;
+  transition: all .3s;
+  box-shadow: 6px 6px 12px #c5c5c5,
+    -6px -6px 12px #ffffff;
+}
+
+.boton_baile_ir:hover {
+  border: 1px solid #c0392b;
+}
+
+.boton_baile_ir:active {
+  box-shadow: 4px 4px 12px #c5c5c5,
+    -4px -4px 12px #ffffff;
 }
 </style>
