@@ -3,7 +3,7 @@
   <v-row class="contenedor-principal">
     <!-- Tarjeta 1 -->
     <v-col v-for="(video, index) in videos" :key="index" cols="12" sm="6" md="4" lg="3" class="canciones_musica">
-      <v-card class="mx-auto my-4 pushable" max-width="400" elevation=16>
+      <v-card class="mx-auto my-4 pushable mix_tall" max-width="400" elevation=16>
         <!-- Contenedor de video con efecto de elevación -->
         <div class="video-container" @mouseenter="reproducirCancion(index)" @mouseleave="detenerSonido()">
           <video autoplay muted loop :src="video.url" type="video/mp4"></video>
@@ -27,25 +27,14 @@
 
         <v-card-text>
           <v-row class="mx-0">
-            <!--
-        <v-rating
-          :model-value="3"
-          color="amber"
-          density="compact"
-          half-increments
-          readonly
-          size="small"
-      
-          hover
-        ></v-rating>
-        -->
+
             <div class="contenedor_promedio">
 
               <div class="tiempo-color ms-4">
-                Promedio de aprendizaje:
+                Tiempo de aprendizaje:
               </div>
               <div class="text-grey ms-4">
-                02:00
+                {{ video.tiempo }}
               </div>
 
             </div>
@@ -63,14 +52,11 @@
           </v-chip-group>
         </div>
 
-        <button class="estilo_boton" @click="reproducirSonido">
+        <v-divider class="mx-4 mb-1"></v-divider>
+
+        <button class="estilo_boton" @click="irAPasosCancion(video.pasosCancion)">
           Comenzar
         </button>
-
-
-        <!-- Otras secciones de la tarjeta (rating, descripción, etc.) -->
-
-        <!-- Botón de reserva u otras acciones -->
 
       </v-card>
     </v-col>
@@ -82,8 +68,9 @@
   padding-left: 60px;
 }
 
+
 .video-container {
-  max-width: 150px;
+  max-width: 110px;
   /* Establece el ancho máximo deseado para el contenedor del video */
   margin: auto;
   /* Centra el contenedor del video horizontalmente */
@@ -153,8 +140,8 @@ video {
 /*boton */
 
 .estilo_boton {
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 button {
@@ -171,10 +158,10 @@ button {
   font-weight: 600;
   line-height: normal;
   margin: 0;
-  min-height: 3.75em;
+  min-height: 2.75em;
   min-width: 0;
   outline: none;
-  padding: 1em 2.3em;
+  padding: 0.6em 1.4em;
   text-align: center;
   text-decoration: none;
   transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
@@ -212,30 +199,34 @@ export default {
         {
           cancion: 'Talento de Televisión',
           autor: 'Wille Colon',
-          tiempo: '00:13',
+          tiempo: '06:00',
           url: require('@/assets/video_television/Paso1_Television.mp4'),
           pasos: ['Basico Lineal', 'Basico Lateral', 'Basico Atras'],
+          pasosCancion: '/pasoscancionTalento',
         },
         {
-          cancion: 'Me tengo que ir',
+          cancion: 'El Dia de mi Suerte',
           autor: 'Los adolescentes',
-          tiempo: '1:00',
-          url: require('@/assets/salsa_fondo.mp4'),
-          pasos: ['Basico Linaseal', 'Paso Lateral', 'Paso cruzado'],
+          tiempo: '05:00',
+          url: require('@/assets/video_dia_suerte/video_dia.mp4'),
+          pasos: ['Basico', 'Suzie Q', 'Mambo', 'Vuelta-Derecha', 'Menéado'],
+          pasosCancion: '/pasoscancionDia',
         },
         {
-          cancion: 'Me tengo que ir',
+          cancion: 'Amores Como el Nuestro',
           autor: 'Los adolescentes',
-          tiempo: '1:00',
-          url: require('@/assets/salsa_fondo.mp4'),
-          pasos: ['Basico asA', 'Paso Lateral', 'Paso cruzado'],
+          tiempo: '03:00',
+          url: require('@/assets/video_nuestro_amor/pasos_3__sin_nombre.mp4'),
+          pasos: ['Basico', 'Lateral', 'Mambo', 'Abro-Cruzado-Vuelta', 'Vuelta'],
+          pasosCancion: '/pasoscancionAmor',
         },
         {
-          cancion: 'Me tengo que ir',
-          autor: 'Los adolescentes',
-          tiempo: '1:00',
-          url: require('@/assets/salsa_fondo.mp4'),
-          pasos: ['Basico as', 'Paso Lateral', 'Paso cruzado'],
+          cancion: 'Yo no se Mañana',
+          autor: 'Luis Enrique',
+          tiempo: '04:00',
+          url: require('@/assets/video_nose_ma/Yo_no_se_sin_nombre.mp4'),
+          pasos: ['Basico', 'Diagonales', 'Mambo'],
+          pasosCancion: '/pasoscancionNose',
         },
       ],
     };
@@ -267,9 +258,8 @@ export default {
 
       // Reproducir el sonido
       this.sonido.play();
-
-      this.$router.push('/pasoscancion');
     },
+
 
     detenerSonido() {
       // Detener la reproducción del sonido si existe
@@ -278,47 +268,48 @@ export default {
         this.sonido.currentTime = 0; // Reiniciar el tiempo de reproducción
       }
     },
-  },
-  startAudio() {
-    const videoElement = this.$refs.videoElement;
-    // Intenta reproducir el audio solo si el usuario ha interactuado con el elemento de video
-    if (videoElement && videoElement.paused) {
-      videoElement.muted = false; // Desactiva el modo silencioso
-      videoElement.play();
-    }
-  },
 
-  stopAudio() {
-    const videoElement = this.$refs.videoElement;
-    if (videoElement) {
-      videoElement.pause();
-      videoElement.currentTime = 0;
-    }
-  },
+    startAudio() {
+      const videoElement = this.$refs.videoElement;
+      // Intenta reproducir el audio solo si el usuario ha interactuado con el elemento de video
+      if (videoElement && videoElement.paused) {
+        videoElement.muted = false; // Desactiva el modo silencioso
+        videoElement.play();
+      }
+    },
 
-  detenerReproduccion() {
-    // Detener la reproducción del video y la canción al salir del mouse
-    const videoElement = this.$refs.videoElement;
+    stopAudio() {
+      const videoElement = this.$refs.videoElement;
+      if (videoElement) {
+        videoElement.pause();
+        videoElement.currentTime = 0;
+      }
+    },
 
-    // Detener la reproducción del video
-    if (videoElement) {
-      videoElement.pause();
-      videoElement.currentTime = 0;
-    }
+    detenerReproduccion() {
+      // Detener la reproducción del video y la canción al salir del mouse
+      const videoElement = this.$refs.videoElement;
 
-    // Detener la reproducción de la canción
-    this.detenerSonido();
-  },
+      // Detener la reproducción del video
+      if (videoElement) {
+        videoElement.pause();
+        videoElement.currentTime = 0;
+      }
 
-  irAPasosCancion() {
-    // Navegar a la ruta '/pasoscancion'
-    this.$router.push('/pasoscancion');
-  },
-  beforeUnmount() {
-    // Detener la reproducción del sonido al salir del componente
-    this.detenerSonido();
+      // Detener la reproducción de la canción
+      this.detenerSonido();
+    },
+
+    irAPasosCancion(rutaPasosCancion) {
+      // Redirigir a la ruta de los pasos de la canción actual
+      this.$router.push(rutaPasosCancion);
+    },
+
+    beforeUnmount() {
+      // Detener la reproducción del sonido al salir del componente
+      this.detenerSonido();
+    },
   },
 };
 </script>
 
-<style scoped></style>

@@ -13,37 +13,34 @@
 
     <!-- Columna de la Lista de Pasos -->
     <v-col cols="12" md="6">
-      <v-list>
-        <v-list-item v-for="(paso, index) in listaDePasos" :key="index">
-          <template v-slot:prepend>
-            <v-avatar size="150" rounded="0">
-              <v-img :src="paso.foto" class="mr-2"></v-img>
-            </v-avatar>
-          </template>
-          <v-list-item-content class="pasos_linea" style="background-color: #f0f0f0;">
-            <v-list-item-title class="text-black text-left">{{ paso.nombre }}</v-list-item-title>
-            <v-list-item-title class="text-grey text-left">
-              {{ paso.inicio }} hasta {{ paso.fin }}
-              <v-icon color="error" icon="mdi-timer-music-outline" size="small"></v-icon>
-            </v-list-item-title>
-            <v-list-item-title class="text-grey text-left">
-              <a class="text-black">Tiempo aprendizaje:</a>
-              02:00
-            </v-list-item-title>
-            <v-list-item-title class="text-grey text-left">
-              <a class="text-red">Dificultad:</a>
-              {{ paso.difucultad }}
-            </v-list-item-title>
-            <v-list-item-title class="text-left">
-              <v-btn @click="reproducirVideo(index)">
-                <v-icon color="red" icon="mdi-play-circle" size="36"></v-icon>
-              </v-btn>
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+      <v-card class="pasos-card">
+        <v-list>
+          <v-list-item v-for="(paso, index) in listaDePasos" :key="index">
+            <template v-slot:prepend>
+              <v-avatar size="150" rounded="0">
+                <v-img :src="paso.foto" class="mr-2"></v-img>
+              </v-avatar>
+            </template>
+            <v-list-item-content class="pasos_linea" style="background-color: #f0f0f0;">
+              <v-list-item-title class="text-black text-left">{{ paso.nombre }}</v-list-item-title>
+              <v-list-item-title class="text-grey text-left">
+                <a class="text-black">Tiempo aprendizaje:</a>
+                02:00
+              </v-list-item-title>
+              <v-list-item-title class="text-grey text-left">
+                <a class="text-red">Dificultad:</a>
+                {{ paso.difucultad }}
+              </v-list-item-title>
+              <v-list-item-title class="text-left">
+                <v-btn @click="reproducirVideo(index)">
+                  <v-icon color="red" icon="mdi-play-circle" size="36"></v-icon>
+                </v-btn>
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
 
-
+      </v-card>
     </v-col>
   </v-row>
 
@@ -120,7 +117,7 @@ export default {
 }
 
 .video-container {
-  max-width: 65%;
+  max-width: 60%;
   margin: auto;
 
 }
@@ -179,4 +176,16 @@ v-list-item-avatar div {
   box-shadow: 4px 4px 12px #c5c5c5,
     -4px -4px 12px #ffffff;
 }
+
+/* Recuadro */
+
+.pasos-card {
+  margin-top: 30px;
+  margin-right: 80px;
+  max-height: 430px;
+  /* Establece la altura máxima deseada */
+  overflow-y: auto;
+  /* Agrega desplazamiento vertical si excede la altura máxima */
+}
+
 </style>

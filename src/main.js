@@ -13,6 +13,10 @@ import BreakDanceComponent from './components/BreakDanceComponent.vue';
 import BachataComponent from './components/BachataComponent.vue';
 import VideoComponent from './components/VideoComponent.vue';
 import PasosCancionComponent from './components/PasosCancionComponent.vue';
+import PasosDiaComponent from './components/PasosDiaComponent.vue';
+import PasosAmorComponent from './components/PasosAmorComponent.vue';
+import PasosNoseComponent from './components/PasosNoseComponent.vue';
+
 
 
 // Vuetify
@@ -50,9 +54,10 @@ const routes = [
   { path: '/breakdance', component:  BreakDanceComponent },
   { path: '/bachata', component:  BachataComponent },
   { path: '/video', component:  VideoComponent },
-  { path: '/pasoscancion', component:  PasosCancionComponent },
-
-
+  { path: '/pasoscancionTalento', component:  PasosCancionComponent },
+  { path: '/pasoscancionDia', component:  PasosDiaComponent },
+  { path: '/pasoscancionAmor', component:  PasosAmorComponent },
+  { path: '/pasoscancionNose', component:  PasosNoseComponent },
 ]
 
 const router = createRouter({
