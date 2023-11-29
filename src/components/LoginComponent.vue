@@ -5,7 +5,7 @@
         <v-card class="pa-8" elevation="12">
           <!-- Coloca aquí el logo de tu página -->
           <img src="@/assets/dancing.png" style="max-width: 50%; height: auto;" class="fade" />
-          <p class="text-h6 me_baila">Baila Facil</p>
+          <p class="text-h6 me_baila">ES HORA DE BAILAR</p>
 
 
         </v-card>
@@ -18,12 +18,12 @@
       <v-col cols="12" sm="2" md="4">
         <v-card class="pa-9" elevation="12">
           <div class="texttitle">
-            Ingresa tu nombre
+            INGRESA TU NOMBRE
           </div>
 
           <v-form>
             <v-text-field v-model="message" :append-icon="message" :prepend-icon="icon" variant="filled"
-              clear-icon="mdi-close-circle" clearable label="nombre" type="text" @click:append-inner="toggleMarker"
+              clear-icon="mdi-close-circle" clearable label="NOMBRE" type="text" @click:append-inner="toggleMarker"
               @click:append="sendMessage" @click:prepend="changeIcon" @click:clear="clearMessage"
               class="custom-label-color"></v-text-field>
             <!-- Botón de ingresar -->
@@ -128,5 +128,6 @@ export default {
 
 .me_baila{
   margin-top: 20px;
+  text-transform: lowercase;
 }
 </style>

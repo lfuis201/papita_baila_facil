@@ -1,9 +1,27 @@
 <template>
   <h1 class="genre-header">Selecciona tu género de baile</h1>
-  <p class="text_name">{{ $route.query.username }}</p>
+
+  <div class="nombre_persona">
+
+    <p class="text_name">{{ $route.query.username }}</p>
+
+    <div class="arrow_movimiento">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-big-down-lines" width="72"
+        height="72" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff4500" fill="none" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path
+          d="M15 12h3.586a1 1 0 0 1 .707 1.707l-6.586 6.586a1 1 0 0 1 -1.414 0l-6.586 -6.586a1 1 0 0 1 .707 -1.707h3.586v-3h6v3z" />
+        <path d="M15 3h-6" />
+        <path d="M15 6h-6" />
+      </svg>
+    </div>
+
+  </div>
+
   <Carousel wrap-around="true">
     <!-- Slide 1 -->
-    <Slide :key="1" @click="goToAnotherComponent(1)">
+    <Slide :key="1" @click="goToAnotherComponent(1); reproducirSonido()">
 
       <div class="carousel__item">
         <video ref="video" autoplay muted loop class="video-background" @mouseover="startAudio($refs.video)"
@@ -89,7 +107,18 @@ export default {
     goToAnotherComponent(slide) {
       // Redirecciona a la ruta pasos-salsa al hacer clic en el Slide 1
       if (slide === 1) {
+        this.reproducirSonido();
         this.$router.push('/video');
+      }
+    },
+    reproducirSonido() {
+      try {
+        const rutaSonido = require('@/assets/intro_salsa.mp3'); // Ajusta la ruta según tu estructura
+        this.detenerSonido();
+        this.sonido = new Audio(rutaSonido);
+        this.sonido.play();
+      } catch (error) {
+        console.error('Error al reproducir la canción:', error);
       }
     },
     startAudio(videoElement) {
@@ -168,7 +197,7 @@ export default {
 
 .slide-title {
   position: absolute;
-  top: 380px;
+  top: 420px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 23;
@@ -179,18 +208,73 @@ export default {
 }
 
 .genre-header {
+
   margin-top: 50px;
   color: #d35400;
   text-transform: uppercase;
   font-size: 35px;
+  font-family: "Verdana", "Bitstream Vera Serif", serif;
 }
 
 /* nombre */
 
-.text_name{
+.text_name {
   margin-top: 10px;
   color: #c87742;
   font-size: 30px;
   text-transform: uppercase;
+  margin-right: 10px;
+  margin-left: 10px;
+  font-family: "Roboto", serif;
+  position: relative;
+  /* Añadir posición relativa para que el subrayado sea relativo a este elemento */
+  overflow: hidden;
+  /* Ocultar el exceso de línea que aparecerá progresivamente */
 }
-</style>
+
+.text_name::after {
+  content: '';
+  /* Contenido vacío necesario para que ::after funcione */
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  /* Altura inicial del subrayado (puedes ajustar según sea necesario) */
+  width: 0;
+  /* Longitud inicial del subrayado */
+  background-color: #c87742;
+  /* Color del subrayado */
+  transition: width 0.3s ease;
+  /* Agregar transición para un efecto suave */
+}
+
+.text_name:hover::after {
+  width: 100%;
+  /* Longitud completa del subrayado al pasar el cursor */
+}
+
+.nombre_persona {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.arrow_movimiento {
+  animation: moveUpDown 0.5s infinite alternate;
+  /* 1.5s de duración, infinita y en sentido alterno */
+}
+
+@keyframes moveUpDown {
+  0% {
+    transform: translateY(0);
+    /* Posición inicial */
+  }
+
+  100% {
+    transform: translateY(10px);
+    /* Desplazamiento hacia abajo */
+  }
+}</style>

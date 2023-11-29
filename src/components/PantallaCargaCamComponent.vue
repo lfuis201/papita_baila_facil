@@ -25,7 +25,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente */
+  background: rgb(255, 255, 255); /* Fondo semi-transparente */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -43,6 +43,7 @@ export default {
   width: 50px;
   height: 50px;
   animation: spin 1s linear infinite;
+  margin-top: 20px;
 }
 
 @keyframes spin {

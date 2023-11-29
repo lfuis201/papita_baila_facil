@@ -3,14 +3,16 @@
   <v-row class="contenedor-principal">
     <!-- Tarjeta 1 -->
     <v-col v-for="(video, index) in videos" :key="index" cols="12" sm="6" md="4" lg="3" class="canciones_musica">
-      <v-card class="mx-auto my-4 pushable mix_tall" max-width="400" elevation=16>
+      <v-card class="mx-auto my-4 pushable mix_tall" elevation=16>
         <!-- Contenedor de video con efecto de elevación -->
-        <div class="video-container" @mouseenter="reproducirCancion(index)" @mouseleave="detenerSonido()">
-          <video autoplay muted loop :src="video.url" type="video/mp4"></video>
-          <!-- Agregamos las clases para el efecto de elevación -->
-          <div class="front"></div>
-          <div class="shadow"></div>
+
+
+        <div class="video-container" @mouseenter="detenerSonido(); reproducirCancion(index)"
+          @mouseleave="detenerSonido()">
+          <video class="video_edit" autoplay muted loop :src="video.url" type="video/mp4"
+            @error="handleVideoError"></video>
         </div>
+
 
 
         <v-card-item>
@@ -39,6 +41,39 @@
 
             </div>
 
+
+            <div class="contenedor_dificultad">
+              <div class="tiempo-dificultad">
+                Dificultad:
+              </div>
+              <div v-if="video.dificultad === 'facil'" class="barra-verde-consecutiva">
+                <div class="barra-verde"></div>
+                <div class="barra-gris"></div>
+                <div class="barra-gris"></div>
+                <div class="barra-gris"></div>
+              </div>
+              <div v-else-if="video.dificultad === 'medio'" class="barra-verde-consecutiva">
+                <div class="barra-verde"></div>
+                <div class="barra-naranja"></div>
+                <div class="barra-gris"></div>
+                <div class="barra-gris"></div>
+              </div>
+              <div v-else-if="video.dificultad === 'dificil'" class="barra-verde-consecutiva">
+                <div class="barra-verde"></div>
+                <div class="barra-naranja"></div>
+                <div class="barra-roja"></div>
+                <div class="barra-gris"></div>
+              </div>
+              <div v-else class="barra-gris-consecutiva">
+                <div class="barra-gris"></div>
+                <div class="barra-gris"></div>
+                <div class="barra-gris"></div>
+                <div class="barra-gris"></div>
+              </div>
+            </div>
+
+
+
           </v-row>
         </v-card-text>
 
@@ -54,7 +89,7 @@
 
         <v-divider class="mx-4 mb-1"></v-divider>
 
-        <button class="estilo_boton" @click="irAPasosCancion(video.pasosCancion)">
+        <button class="estilo_boton" @click="irAPasosCancion(video.pasosCancion); reproducirSonido()">
           Comenzar
         </button>
 
@@ -65,12 +100,14 @@
 
 <style scoped>
 .contenedor_promedio {
-  padding-left: 60px;
+  margin-top: 6px;
+  padding-left: 40px;
 }
 
 
 .video-container {
   max-width: 110px;
+
   /* Establece el ancho máximo deseado para el contenedor del video */
   margin: auto;
   /* Centra el contenedor del video horizontalmente */
@@ -186,6 +223,85 @@ button:active {
   box-shadow: none;
   transform: translateY(0);
 }
+
+/*Nivel */
+
+/* Estilos para el contenedor del video y el rectángulo negro */
+.video-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.tiempo-color {
+  font-size: 16px;
+
+
+}
+
+.tiempo-dificultad {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.contenedor_dificultad {
+  margin-top: 6px;
+  margin-left: 110px;
+  margin-bottom: 8px;
+}
+
+/* Dificultad barra */
+
+.barra-verde-consecutiva {
+  display: flex;
+  gap: 2px;
+  /* Puedes ajustar el espacio entre las barras según tus preferencias */
+  margin-top: 5px;
+}
+
+.barra-gris-consecutiva {
+  display: flex;
+  gap: 2px;
+  /* Puedes ajustar el espacio entre las barras según tus preferencias */
+}
+
+.barra-verde {
+  width: 25px;
+  /* ajusta el ancho según sea necesario */
+  height: 5px;
+  /* ajusta la altura según sea necesario */
+  background-color: green;
+  display: inline-block;
+}
+
+.barra-naranja {
+  width: 25px;
+  /* ajusta el ancho según sea necesario */
+  height: 5px;
+  /* ajusta la altura según sea necesario */
+  background-color: orange;
+  display: inline-block;
+}
+
+.barra-roja {
+  width: 25px;
+  /* ajusta el ancho según sea necesario */
+  height: 5px;
+  /* ajusta la altura según sea necesario */
+  background-color: red;
+  display: inline-block;
+}
+
+.barra-blanca {
+  width: 25px;
+  /* ajusta el ancho según sea necesario */
+  height: 5px;
+  /* ajusta la altura según sea necesario */
+  background-color: rgb(110, 21, 21);
+  /* o blanco, según prefieras */
+  display: inline-block;
+}
 </style>
 
 <script>
@@ -203,6 +319,7 @@ export default {
           url: require('@/assets/video_television/Paso1_Television.mp4'),
           pasos: ['Basico Lineal', 'Basico Lateral', 'Basico Atras'],
           pasosCancion: '/pasoscancionTalento',
+          dificultad: 'facil',
         },
         {
           cancion: 'El Dia de mi Suerte',
@@ -211,6 +328,7 @@ export default {
           url: require('@/assets/video_dia_suerte/video_dia.mp4'),
           pasos: ['Basico', 'Suzie Q', 'Mambo', 'Vuelta-Derecha', 'Menéado'],
           pasosCancion: '/pasoscancionDia',
+          dificultad: 'dificil',
         },
         {
           cancion: 'Amores Como el Nuestro',
@@ -219,6 +337,7 @@ export default {
           url: require('@/assets/video_nuestro_amor/pasos_3__sin_nombre.mp4'),
           pasos: ['Basico', 'Lateral', 'Mambo', 'Abro-Cruzado-Vuelta', 'Vuelta'],
           pasosCancion: '/pasoscancionAmor',
+          dificultad: 'medio',
         },
         {
           cancion: 'Yo no se Mañana',
@@ -227,87 +346,146 @@ export default {
           url: require('@/assets/video_nose_ma/Yo_no_se_sin_nombre.mp4'),
           pasos: ['Basico', 'Diagonales', 'Mambo'],
           pasosCancion: '/pasoscancionNose',
+          dificultad: 'medio',
         },
       ],
     };
   },
   methods: {
     reproducirCancion(index) {
-      // Obtener la ruta de la canción actual
-      const rutaCancion = this.videos[index].url;
+      try {
+        // Obtener la ruta de la canción actual
+        const rutaCancion = this.videos[index].url;
 
-      // Detener la reproducción anterior si existe
-      this.detenerSonido();
+        // Detener la reproducción anterior si existe
+        this.detenerSonido();
 
-      // Crear una instancia de Audio
-      this.sonido = new Audio(rutaCancion);
+        // Crear una instancia de Audio
+        this.sonido = new Audio(rutaCancion);
 
-      // Reproducir la canción
-      this.sonido.play();
+        // Reproducir la canción
+        this.sonido.play();
+
+        // Agregar un evento para manejar el estado de reproducción
+        this.sonido.addEventListener('playing', () => {
+          console.log('Canción reproduciéndose');
+          // Puedes realizar otras acciones aquí si es necesario
+        });
+
+        // Agregar un evento para manejar el estado de pausa
+        this.sonido.addEventListener('pause', () => {
+          console.log('Canción en pausa');
+          // Puedes realizar otras acciones aquí si es necesario
+        });
+
+        // Agregar un evento para manejar el estado de finalización
+        this.sonido.addEventListener('ended', () => {
+          console.log('Canción finalizada');
+          // Puedes realizar otras acciones aquí si es necesario
+        });
+      } catch (error) {
+        console.error('Error al reproducir la canción:', error);
+      }
     },
+
 
     reproducirSonido() {
-      // Ruta al archivo de sonido
-      const rutaSonido = require('@/assets/sonido.mp3'); // Ajusta la ruta según tu estructura
+      try {
+        // Ruta al archivo de sonido
+        const rutaSonido = require('@/assets/sonido.mp3'); // Ajusta la ruta según tu estructura
 
-      // Detener la reproducción anterior si existe
-      this.detenerSonido();
+        // Detener la reproducción anterior si existe
+        this.detenerSonido();
 
-      // Crear una instancia de Audio
-      this.sonido = new Audio(rutaSonido);
+        // Crear una instancia de Audio
+        this.sonido = new Audio(rutaSonido);
 
-      // Reproducir el sonido
-      this.sonido.play();
+        // Reproducir el sonido
+        this.sonido.play();
+      } catch (error) {
+        console.error('Error al reproducir la canción:', error);
+      }
     },
+
+
 
 
     detenerSonido() {
-      // Detener la reproducción del sonido si existe
-      if (this.sonido) {
-        this.sonido.pause();
-        this.sonido.currentTime = 0; // Reiniciar el tiempo de reproducción
+      try {
+        if (this.sonido && !this.sonido.paused) {
+          this.sonido.pause();
+          this.sonido.currentTime = 0; // Reiniciar el tiempo de reproducción
+        }
+      } catch (error) {
+        console.error('Error al detener el sonido:', error);
       }
     },
 
     startAudio() {
-      const videoElement = this.$refs.videoElement;
-      // Intenta reproducir el audio solo si el usuario ha interactuado con el elemento de video
-      if (videoElement && videoElement.paused) {
-        videoElement.muted = false; // Desactiva el modo silencioso
-        videoElement.play();
+      try {
+        const videoElement = this.$refs.videoElement;
+        // Intenta reproducir el audio solo si el usuario ha interactuado con el elemento de video
+        if (videoElement && videoElement.paused) {
+          videoElement.muted = false; // Desactiva el modo silencioso
+          videoElement.play();
+        }
+      } catch (error) {
+        console.error('Error al reproducir la canción:', error);
       }
     },
 
     stopAudio() {
-      const videoElement = this.$refs.videoElement;
-      if (videoElement) {
-        videoElement.pause();
-        videoElement.currentTime = 0;
+      try {
+        const videoElement = this.$refs.videoElement;
+        if (videoElement) {
+          videoElement.pause();
+          videoElement.currentTime = 0;
+        }
+      } catch (error) {
+        console.error('Error al reproducir la canción:', error);
       }
     },
 
     detenerReproduccion() {
-      // Detener la reproducción del video y la canción al salir del mouse
-      const videoElement = this.$refs.videoElement;
+      try {
+        // Detener la reproducción del video y la canción al salir del mouse
+        const videoElement = this.$refs.videoElement;
 
-      // Detener la reproducción del video
-      if (videoElement) {
-        videoElement.pause();
-        videoElement.currentTime = 0;
+        // Detener la reproducción del video
+        if (videoElement) {
+          videoElement.pause();
+          videoElement.currentTime = 0;
+        }
+
+        // Detener la reproducción de la canción
+        this.detenerSonido();
+      } catch (error) {
+        console.error('Error al reproducir la canción:', error);
       }
-
-      // Detener la reproducción de la canción
-      this.detenerSonido();
     },
 
     irAPasosCancion(rutaPasosCancion) {
-      // Redirigir a la ruta de los pasos de la canción actual
-      this.$router.push(rutaPasosCancion);
+      try {
+        // Redirigir a la ruta de los pasos de la canción actual
+        this.$router.push(rutaPasosCancion);
+      } catch (error) {
+        console.error('Error al reproducir la canción:', error);
+      }
     },
 
     beforeUnmount() {
-      // Detener la reproducción del sonido al salir del componente
-      this.detenerSonido();
+      try {
+        // Detener la reproducción del sonido al salir del componente
+        this.detenerSonido();
+      } catch (error) {
+        console.error('Error al reproducir la canción:', error);
+      }
+    },
+    handleVideoError(event) {
+      console.error('Error al cargar el video.');
+
+      // Evita que el error se propague al navegador
+      event.preventDefault();
     },
   },
 };
