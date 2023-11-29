@@ -1,6 +1,6 @@
 <template>
   <div class="loading-screen" v-if="isLoading">
-    <img src="@/assets/dancing.png" style="width: 20%; height: auto;" class="fade" />
+    <img src="@/assets/dancing.png" style="width: 10%; height: auto;" class="fade" />
     <div class="spinner"></div>
     <p>Baila Facil...</p>
   </div>
@@ -25,12 +25,12 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente */
+  background:#fff; /* Fondo semi-transparente */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 9999; /* Asegúrate de estar sobre otros elementos */
+  z-index: 1; /* Asegúrate de estar sobre otros elementos */
 }
 
 .spinner {

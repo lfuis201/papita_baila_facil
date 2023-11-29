@@ -1,7 +1,6 @@
 <template>
-
-
-<h1 class="genre-header">Selecciona tu género de baile</h1>
+  <h1 class="genre-header">Selecciona tu género de baile</h1>
+  <p class="text_name">{{ $route.query.username }}</p>
   <Carousel wrap-around="true">
     <!-- Slide 1 -->
     <Slide :key="1" @click="goToAnotherComponent(1)">
@@ -12,7 +11,7 @@
           <source src="@/assets/salsa_fondo.mp4" type="video/mp4" />
         </video>
       </div>
-      <h1 class="slide-title" >Salsa</h1>
+      <h1 class="slide-title">Salsa</h1>
     </Slide>
 
     <!-- Slide 2 -->
@@ -77,6 +76,9 @@ export default {
     Slide,
     Pagination,
     Navigation,
+  },
+  username() {
+    return this.$route.query.username;
   },
   data() {
     return {
@@ -181,4 +183,14 @@ export default {
   color: #d35400;
   text-transform: uppercase;
   font-size: 35px;
-}</style>
+}
+
+/* nombre */
+
+.text_name{
+  margin-top: 10px;
+  color: #c87742;
+  font-size: 30px;
+  text-transform: uppercase;
+}
+</style>
